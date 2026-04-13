@@ -12,23 +12,23 @@ const getAuthorById = async (id) => {
 }
 
 // create new author
-const createAuthor = async (data) => {
-    return AuthorDao.insertAuthor(data)
+const createAuthor = async (body) => {
+    return AuthorDao.postAuthor(body)
 }
 
 // update author
-const updateAuthorById = async (id,data) => {
-    return AuthorDao.fullUpdate(id,data)
+const updateAuthorById = async (id,body) => {
+    return AuthorDao.putAuthor(id,body)
 }
 
 // patch update author
-const patchAuthorById = async(id,data) => {
-    return AuthorDao.patchUpdate(id,data)
+const patchAuthorById = async(id,body) => {
+    return AuthorDao.patchUpdate(id,body)
 }
 
 // delete author
 const deleteAuthorById = async(id) => {
-    return AuthorDao.remove(id)
+    return AuthorDao.removeAuthor(id)
 }
 
 // exports

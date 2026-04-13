@@ -1,5 +1,5 @@
 
-// validation schema for the inputs operations CRUD
+// validation schema for the (Author) inputs operations CRUD
 
 // Get  /authors/:id
 const getByIdValidSchema = {

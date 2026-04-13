@@ -12,12 +12,12 @@ const getAuthorById = async(id) => {
 }
 
 // create new author
-const insertAuthor = async (data) => {
+const postAuthor = async (data) => {
     return db.Author.create(data)
 }
 
 // put full update
-const fullUpdate = async(id,body) => {
+const putAuthor = async(id,body) => {
     const author = await db.Author.findByPk(id)
 
     if(!author){    // if not found, return null -> nothing found
@@ -41,7 +41,7 @@ const patchUpdate = async(id,body) => {
 
 
 // delete author
-const remove = async(id) => {
+const removeAuthor = async(id) => {
     const author = await db.Author.findByPk(id)
     if(!author){
         return null
@@ -51,4 +51,4 @@ const remove = async(id) => {
 }
 
 
-module.exports = { getAll, getAuthorById, insertAuthor, fullUpdate, patchUpdate, remove}
+module.exports = { getAll, getAuthorById, postAuthor, putAuthor, putAuthor, patchUpdate, removeAuthor}

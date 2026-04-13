@@ -1,5 +1,5 @@
 
-const AuthorService = require("../management/services/author.service")
+const AuthorService = require("../management/services/author")
 
 // get  /authors
 const getAllauthors = async(req,res) => {
@@ -12,6 +12,7 @@ const getAllauthors = async(req,res) => {
     }
 }
 
+
 // getby id /authors
 const getById = async (req,res) => {
     try{
@@ -23,15 +24,16 @@ const getById = async (req,res) => {
         res.status(200).json(data)
     }
     catch(err) {
-        return res.status(500).json({Error: err.message})
+        return res.status(500).json({Error : err.message})
     }
 }
+
 
 // post  /authors
 const createNewAuthor = async (req,res) => {
     try{
         const data = await AuthorService.createAuthor(req.body)   // calls author.service
-        res.status(201).json(data)
+        res.status(201).json({Message : "Author Created Successfully"})
     }
     catch(err){
         return res.status(500).json({Error : err.message})
