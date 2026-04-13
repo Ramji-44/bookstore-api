@@ -34,7 +34,7 @@ const createNewAuthor = async (req,res) => {
         res.status(201).json(data)
     }
     catch(err){
-        return res.status(500).json({Message : "Author created Successfully "})
+        return res.status(500).json({Error : err.message})
     }
 }
 
