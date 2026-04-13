@@ -8,7 +8,7 @@ const getAllBooks = async(req,res) => {
         res.status(200).json(data)
     }
     catch(err){
-        return res.status(500).json({Error: err.messsage})
+        return res.status(500).json({Error: err.message})
     }
 }
 
@@ -17,7 +17,7 @@ const getByid = async (req,res) => {
     try{
         const data = await bookService.getByBookId(req.params.id)   // get id from params.
         if(!data) {
-            return res.status(400).json({Error : "Book Not Found"})
+            return res.status(404).json({Error : "Book Not Found"})
         }
         res.status(200).json(data)
     }
@@ -30,10 +30,10 @@ const getByid = async (req,res) => {
 const postBook = async(req,res) => {
     try{
         const data = await bookService.createBook(req.body)
-        res.status(201).json({Message : "Books Created successfully"})
+        res.status(201).json(data)
     }
     catch(err){
-        return res.json(500).json({Error : err.message})
+        return res.status(500).json({Error : err.message})
     }
 }
 
@@ -46,7 +46,7 @@ const putBook = async(req,res) => {
         const fullUpdate = await bookService.fullUpdateBook(id,body)
 
         if(!fullUpdate){
-            return res.status(404).json({Error : err.message})
+            return res.status(404).json({Error : "Book Not Found"})
         }
         res.json({Message : "Book Updated successfully !!"})
     }

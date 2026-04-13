@@ -43,7 +43,10 @@ const PostBookVS = {
 // put books  /books/:id
 const putBookVS = {
     id : {
-        in : ["params"]
+        in : ["params"],
+        isInt: {
+        errorMessage: "ID must be number"
+    }
     },
     title : {
         notEmpty : {
@@ -75,9 +78,11 @@ const putBookVS = {
 // patch books /books/:id
 const patchBookVS = {
     id : {
-        in : ["params"]
+        in : ["params"],
+        isInt : {errorMessage : "Id must be a Number"}
     },
     title : {
+        optional : true,
         notEmpty : {
             errorMessage : "Title must not be empty"
         },
@@ -95,6 +100,7 @@ const patchBookVS = {
         }
     }, 
      author_id : {
+        optional : true,
         notEmpty : {
             errorMessage : "author_id must not be empty"
         },

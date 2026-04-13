@@ -7,42 +7,42 @@ const getAllBooks = async() => {
 }
 
 // get book by pk (id)
-const getBooksbyId = async(id) => {
+const getBookbyId = async(id) => {
     return db.Book.findByPk(id)
 }
 
 // create new book 
-const postBook = async(body) => {
+const createBook = async(body) => {
     return db.Book.create(body)
 }
 
 // put (update) book
-const putBook = async(id, body) => {
-    const book = db.Book.findByPk(id)
+const updateBook = async(id, body) => {
+    const book = await db.Book.findByPk(id)
 
     if(!book){
         return null
     }
-    book.name = body.name
+    book.title = body.title
     book.price = body.price
     book.author_id = body.author_id
 
-    return await author.save()   // save changes.
+    return await book.save()   // save changes.
 }
 
 // patch (partial update) book
 const patchBook = async(id, body) => {
-    const book = db.Book.findByPk(id)
+    const book = await db.Book.findByPk(id)
 
     if(!book){
         return null
     }
-    return await book.update()  // update and save changes
+    return await book.update(body)  // update and save changes
 }
 
 // delete book
-const removeBook = async(id, body) => {
-    const book = db.Book.findByPk(id)
+const deleteBook = async(id) => {
+    const book = await db.Book.findByPk(id)
 
     if(!book){
         return null
@@ -51,4 +51,4 @@ const removeBook = async(id, body) => {
     return true          // for deletion success.
 }
 
-module.exports = {getAllBooks, getBooksbyId, postBook, putBook, patchBook, removeBook}
+module.exports = {getAllBooks, getBookbyId, createBook, updateBook, patchBook, deleteBook}

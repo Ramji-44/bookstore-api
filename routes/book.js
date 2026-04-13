@@ -12,7 +12,7 @@ const { checkSchema } = require("express-validator")
 router.get('/', bookController.getAllBooks)   // all books
 router.get('/:id', checkSchema(getByIdVS), validate, bookController.getByid)   // find ny id
 router.post('/', checkSchema(PostBookVS), validate, bookController.postBook)    // post
-router.put('./:id', checkSchema(putBookVS), validate, bookController.putBook)   // update author
+router.put('/:id', checkSchema(putBookVS), validate, bookController.putBook)   // update author
 router.patch('/:id', checkSchema(patchBookVS), validate, bookController.patchBook)  // partial update
 router.delete('/:id', checkSchema(deleteBookVS), validate, bookController.deleteBook)  // delete book
 
