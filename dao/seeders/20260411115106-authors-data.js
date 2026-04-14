@@ -5,32 +5,32 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('authors', [
       {
-        name : "Martin",
-        country: "Mexico",
+        name : "martin",
+        country: "mexico",
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
-        name : "Charles Darwin",
-        country: "England",
+        name : "charles darwin",
+        country: "england",
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
-        name : "Peter",
-        country : "Australia",
+        name : "peter",
+        country : "australia",
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
-        name : "Ravi Kumar",
-        country : "India",
+        name : "ravi kumar",
+        country : "india",
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
-        name : "Robert",
-        country : "America",
+        name : "robert",
+        country : "america",
         createdAt : new Date(),
         updatedAt : new Date()
       }
