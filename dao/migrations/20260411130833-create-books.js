@@ -13,21 +13,17 @@ module.exports = {
       },
       title : {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       price : {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DECIMAL(10,2),
         allowNull: false
       },
-      author_id : {        // author_id is a FK
+      stock : {   
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {
-          model : "authors",  // author table name
-          key : "id"          
-        },
-        onUpdate : 'CASCADE',   // update and deletes if author_id changes, FK will change 
-        onDelete : 'CASCADE'
+        defaultValue: 0
       },
       createdAt : {
         type : Sequelize.DATE,

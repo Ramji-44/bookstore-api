@@ -14,25 +14,30 @@ const getByIdVS = {
 // post  /books
 const PostBookVS = {
     title : {
+        in: ["body"],
         notEmpty : {
             errorMessage : "Title must not be empty"
         },
-        isString : {
-            errorMessage : "Title must be String"
+        isLength: {
+            options: { min: 2, max: 200 },
+            errorMessage: "Title must be 2-200 characters"
         }
     },
     price : {
+        in: ["body"],
         notEmpty : {
             errorMessage : "Price must not be empty"
         },
         isInt : {
-            errorMessage : "Price must be in Number"
+            options : {min : 0},
+            errorMessage : "Price must be in valid positive Number"
         }
-    }, 
+    },
      author_id : {
+        in: ["body"],
         notEmpty : {
             errorMessage : "author_id must not be empty"
-        }, 
+        },
         isInt : {
             errorMessage : "author_id must be in number"
         }
@@ -49,25 +54,30 @@ const putBookVS = {
     }
     },
     title : {
+        in: ["body"],
         notEmpty : {
             errorMessage : "Title must not be empty"
         },
-        isString : {
-            errorMessage : "Title must be string"
+        isLength: {
+            options: { min: 2, max: 200 },
+            errorMessage: "Title must be 2-200 characters"
         }
     },
     price : {
+        in: ["body"],
         notEmpty : {
             errorMessage : "Price must not be empty"
         },
-        isInt : {
-            errorMessage : "Price must be in Number"
+        isFloat : {
+            option : {min : 0},
+            errorMessage : "Price must be a valid positive number "
         }
-    }, 
+    },
      author_id : {
+        in: ["body"],
         notEmpty : {
             errorMessage : "author_id must not be empty"
-        }, 
+        },
         isInt : {
             errorMessage : "author_id must be in number"
         }
@@ -82,24 +92,30 @@ const patchBookVS = {
         isInt : {errorMessage : "Id must be a Number"}
     },
     title : {
+        in: ["body"],
         optional : true,
         notEmpty : {
             errorMessage : "Title must not be empty"
         },
-        isString : {
-            errorMessage : "Title must be string"
+        isLength: {
+            options: { min: 2, max: 200 },
+            errorMessage: "Title must be 2-200 characters"
         }
     },
+
     price : {
+        in: ["body"],
         optional: true,
         notEmpty : {
             errorMessage : "Price must not be empty"
         },
-        isInt : {
-            errorMessage : "Price must be in Number"
+        isFloat : {
+            options: { min: 100 },
+            errorMessage : "Price must be a valid positive number"
         }
-    }, 
+    },
      author_id : {
+        in: ["body"],
         optional : true,
         notEmpty : {
             errorMessage : "author_id must not be empty"

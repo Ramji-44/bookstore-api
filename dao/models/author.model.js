@@ -5,10 +5,7 @@ module.exports = (Sequelize, DataTypes) => {
         name :{
             type : DataTypes.STRING,
             allowNull : false,
-
-            unique: {                          //  unique constraint
-                msg: "Author name already exists"
-            },
+            unique: true,
 
             validate : {
                 notNull : {
@@ -26,8 +23,8 @@ module.exports = (Sequelize, DataTypes) => {
         country : {
             type : DataTypes.STRING,
             validate : {
-                isAlpha : {
-                    msg : "Country must contain only letters"
+                notEmpty : {
+                    msg : "Country cannot be blank"
                 },
                 len : {
                     args : [3, 100],
@@ -37,11 +34,5 @@ module.exports = (Sequelize, DataTypes) => {
         }
     })
 
-    Author.associate = (models) => {
-
-        Author.hasMany(models.Book, {    // one author has many books
-            foreignKey : "author_id"
-        })
-    }
     return Author
 }

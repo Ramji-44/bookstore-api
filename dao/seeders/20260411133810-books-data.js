@@ -7,69 +7,69 @@ module.exports = {
       {
         title: "song of ice and fire",
         price : 2150,
-        author_id : 1,
+        stock: 12,
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
         title: "origin of species",
         price : 1800,
-        author_id : 2,
+        stock: 30,
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
         title : "the alchemist",
         price : 650,
-        author_id : 3,
+        stock : 20,
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
         title : "adventures of sherlock holmes",
         price : 1600,
-        author_id : 4,
+        stock : 33,
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
         title : "discovery of india",
         price : 800,
-        author_id : 4,
+        stock : 7,
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
         title : "four stars of destiny",
         price : 1050,
-        author_id : 3,
+        stock : 18,
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
         title : "the glass palace",
         price : 1400,
-        author_id : 1,
+        stock : 10,
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
         title : "maximum city",
         price : 500,
-        author_id : 4,
+        stock : 11,
         createdAt : new Date(),
         updatedAt : new Date()
       },{
         title : "a fine balance",
         price : 1100,
-        author_id : 2,
+        stock : 26,
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
         title : "train to pakistan",
         price : 1300,
-        author_id : 5,
+        stock : 2,
         createdAt : new Date(),
         updatedAt : new Date()
       }
