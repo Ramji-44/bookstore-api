@@ -13,8 +13,11 @@ const getAuthorById = async (id) => {
 
 // create new author
 const createAuthor = async (body) => {
+    if(!body.name){
+        throw new Error ("Name is required")
+    }
 
-    const authorExists = await AuthorDao.findByName(body.name)    // if exist in db
+    const authorExists = await AuthorDao.findByName(body.name.toLowerCase().trim())    // if exist in db
     if(authorExists){
         throw new Error ("Author already exists")
     }
@@ -24,14 +27,14 @@ const createAuthor = async (body) => {
 
 // put  full update author 
 const updateAuthorById = async (id,body) => {
-
-     const authorExists = await AuthorDao.findByName(body.name);
+    if(body.name){
+     const authorExists = await AuthorDao.findByName(body.name.toLowerCase().trim());
 
     // ignore same 
     if (authorExists && authorExists.id != id) {
         throw new Error("Author already exists");
     }
-    
+}   
     return AuthorDao.putAuthor(id,body)
 }
 
@@ -39,7 +42,7 @@ const updateAuthorById = async (id,body) => {
 const patchAuthorById = async(id,body) => {
     if (body.name) {
 
-        const authorExists = await AuthorDao.findByName(body.name);
+        const authorExists = await AuthorDao.findByName(body.name.toLowerCase().trim());
 
         if (authorExists && authorExists.id != id) {
             throw new Error("Author already exists");

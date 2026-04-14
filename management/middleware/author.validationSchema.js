@@ -31,7 +31,7 @@ const postValidSchema = {
             errorMessage: "Country must not be empty"
         },
         matches: {
-            options: /^[a-zA-Z]+$/,
+            options: /^[a-zA-Z ]+$/,
             errorMessage: "Country must contain only letters and spaces"
         }
     }
@@ -53,7 +53,7 @@ const putValidSchema = {
             errorMessage: "Name must not be empty"
         },
         matches: {
-            options: /^[a-zA-Z]+$/,
+            options: /^[a-zA-Z ]+$/,
             errorMessage: "Name must contain only letters and spaces"
         }
     },
@@ -64,7 +64,7 @@ const putValidSchema = {
                 errorMessage: "Country must not be empty"
         },
         matches: {
-            options: /^[a-zA-Z]+$/,
+            options: /^[a-zA-Z ]+$/,
             errorMessage: "Country must contain only letters and spaces"
         }
     }
@@ -87,7 +87,7 @@ const patchValidSchema = {
             errorMessage: "Name cannot be empty"
         },
         matches: {
-            options: /^[a-zA-Z]+$/,
+            options: /^[a-zA-Z ]+$/,
             errorMessage: "Name must contain only letters and spaces"
         }
     },
@@ -99,7 +99,7 @@ const patchValidSchema = {
             errorMessage: "Country cannot be empty"
         },
         matches: {
-            options: /^[a-zA-Z]+$/,
+            options: /^[a-zA-Z ]+$/,
             errorMessage: "Country must contain only letters and spaces"
         }
     }

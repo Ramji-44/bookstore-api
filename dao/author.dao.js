@@ -67,4 +67,4 @@ const removeAuthor = async(id) => {
 }
 
 
-module.exports = { getAll, getAuthorById,findByName, postAuthor, putAuthor, patchUpdate, removeAuthor}
+module.exports = { getAll, getAuthorById, findByName, postAuthor, putAuthor, patchUpdate, removeAuthor}

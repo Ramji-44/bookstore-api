@@ -33,6 +33,9 @@ const postBook = async(req,res) => {
         res.status(201).json(data)
     }
     catch(err){
+        if(err.message === "Book already exists"){
+            return res.status(400).json({Error : err.message})
+        }
         return res.status(500).json({Error : err.message})
     }
 }
@@ -47,6 +50,9 @@ const putBook = async(req,res) => {
 
         if(!fullUpdate){
             return res.status(404).json({Error : "Book Not Found"})
+        }
+        if (fullUpdate.Nochange) {     // response for the same data in body,
+            return res.status(200).json({ message: "No update happened, all values are same" })
         }
         res.json({Message : "Book Updated successfully !!"})
     }
@@ -63,7 +69,11 @@ const patchBook = async(req,res) => {
         const partialUpdate = await bookService.partialUpdateBook(id, body)
 
         if(!partialUpdate){
-            return res.status(404).json({Error : err.message})
+            return res.status(404).json({Error : "Book not found"})
+        }
+                
+        if (partialUpdate.Nochange) {    //  response for the same data in body,
+            return res.status(200).json({ message: "No update happened, all values are same" })
         }
         res.json({Message : "Book Updated succesfully"})
     }
@@ -80,7 +90,7 @@ const deleteBook = async(req,res) => {
         const remove = await bookService.destroyBook(id)
 
         if(!remove){
-            return res.status(404).json({Error : err.message})
+            return res.status(404).json({Error : "Book not found"})
         }
         res.json({Message : "Book Deleted successfully"})
     }

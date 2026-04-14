@@ -13,7 +13,15 @@ const getBookbyId = async(id) => {
 
 // create new book 
 const createBook = async(body) => {
+    body.title = body.title.toLowerCase().trim()
     return db.Book.create(body)
+}
+
+// duplicate title check
+const findByTitle = async (title) => {
+    return db.Book.findOne({
+        where: { title }
+    })
 }
 
 // put (update) book
@@ -23,9 +31,16 @@ const updateBook = async(id, body) => {
     if(!book){
         return null
     }
-    book.title = body.title
-    book.price = body.price
-    book.author_id = body.author_id
+    const newTitle = body.title ? body.title.toLowerCase().trim() : book.title
+    const newPrice = body.price ?? book.price
+    const newStock = body.stock ?? book.stock
+// checks the same data is given in body 
+    const checkSameData = book.title === newTitle && Number(book.price) === Number(newPrice) && Number(book.stock) === Number(newStock)
+    if (checkSameData) return { Nochange: true }
+
+    book.title = newTitle
+    book.price = newPrice
+    book.stock = newStock
 
     return await book.save()   // save changes.
 }
@@ -37,6 +52,14 @@ const patchBook = async(id, body) => {
     if(!book){
         return null
     }
+    const newTitle = body.title ? body.title.toLowerCase().trim() : book.title
+    const newPrice = body.price ?? book.price
+    const newStock = body.stock ?? book.stock
+
+    const checkSameData = book.title === newTitle && Number(book.price) === Number(newPrice) && Number(book.stock) === Number(newStock)
+    if (checkSameData) return { Nochange: true }
+
+      if (body.title) body.title = newTitle 
     return await book.update(body)  // update and save changes
 }
 
@@ -51,4 +74,4 @@ const deleteBook = async(id) => {
     return true          // for deletion success.
 }
 
-module.exports = {getAllBooks, getBookbyId, createBook, updateBook, patchBook, deleteBook}
+module.exports = {getAllBooks, getBookbyId,findByTitle, createBook, updateBook, patchBook, deleteBook}

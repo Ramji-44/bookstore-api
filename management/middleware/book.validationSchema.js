@@ -30,18 +30,19 @@ const PostBookVS = {
         },
         isInt : {
             options : {min : 0},
-            errorMessage : "Price must be in valid positive Number"
+            errorMessage : "Price must be a valid positive number"
         }
     },
-     author_id : {
+    stock : {
         in: ["body"],
         notEmpty : {
-            errorMessage : "author_id must not be empty"
+            errorMessage : "Stock must not be empty"
         },
         isInt : {
-            errorMessage : "author_id must be in number"
+            options: { min: 0 },
+            errorMessage : "Stock must be a valid positive number"
         }
-     }
+    }
 }
 
 
@@ -50,8 +51,8 @@ const putBookVS = {
     id : {
         in : ["params"],
         isInt: {
-        errorMessage: "ID must be number"
-    }
+            errorMessage: "ID must be a number"
+        }
     },
     title : {
         in: ["body"],
@@ -69,19 +70,20 @@ const putBookVS = {
             errorMessage : "Price must not be empty"
         },
         isFloat : {
-            option : {min : 0},
-            errorMessage : "Price must be a valid positive number "
+            options : { min : 0 },
+            errorMessage : "Price must be a valid positive number"
         }
     },
-     author_id : {
+    stock : {
         in: ["body"],
         notEmpty : {
-            errorMessage : "author_id must not be empty"
+            errorMessage : "Stock must not be empty"
         },
         isInt : {
-            errorMessage : "author_id must be in number"
+            options: { min: 0 },
+            errorMessage : "Stock must be a valid positive number"
         }
-     }
+    }
 }
 
 
@@ -89,7 +91,7 @@ const putBookVS = {
 const patchBookVS = {
     id : {
         in : ["params"],
-        isInt : {errorMessage : "Id must be a Number"}
+        isInt : { errorMessage : "Id must be a number" }
     },
     title : {
         in: ["body"],
@@ -110,24 +112,25 @@ const patchBookVS = {
             errorMessage : "Price must not be empty"
         },
         isFloat : {
-            options: { min: 100 },
+            options: { min: 0 },
             errorMessage : "Price must be a valid positive number"
         }
     },
-     author_id : {
+    stock : {
         in: ["body"],
         optional : true,
         notEmpty : {
-            errorMessage : "author_id must not be empty"
+            errorMessage : "Stock must not be empty"
         },
         isInt : {
-            errorMessage : "author_id must be in number"
+            options: { min: 0 },
+            errorMessage : "Stock must be a valid positive number"
         }
     }
 }
 
 
-// delete  .books/:id
+// delete  /books/:id
 const deleteBookVS = {
     id : {
         in : ["params"],
