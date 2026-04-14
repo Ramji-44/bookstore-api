@@ -10,9 +10,17 @@ const getAll = async () => {
 const getAuthorById = async(id) => {
     return db.Author.findByPk(id)
 }
+// finds Name 
+const findByName = async (name) => {
+    return db.Author.findOne({
+        where: { name }
+    })
+}
+
 
 // create new author
 const postAuthor = async (data) => {
+    data.name = data.name.toLowerCase().trim()
     return db.Author.create(data)
 }
 
@@ -23,8 +31,12 @@ const putAuthor = async(id,body) => {
     if(!author){    // if not found, return null -> nothing found
         return null
     }
-    author.name = body.name
-    author.country = body.country
+    // checks the same data is updating or the data changed
+    const checkSameData = author.name === body.name && author.country === body.country
+    if(checkSameData) return {Nochange : true}
+
+    author.name = body.name ?? author.name
+    author.country = body.country ?? author.country
 
     return await author.save()   // save changes.
 }
@@ -35,7 +47,11 @@ const patchUpdate = async(id,body) => {
 
     if(!author){
         return  null
-    }
+    } 
+    // check if data is in same or changed.. 
+    const checkSameData = author.name === body.name && author.country === body.country
+    if(checkSameData) return {Nochange : true}
+
     return await author.update(body)   // update() -> update and save changes
 }
 
@@ -51,4 +67,4 @@ const removeAuthor = async(id) => {
 }
 
 
-module.exports = { getAll, getAuthorById, postAuthor, putAuthor, putAuthor, patchUpdate, removeAuthor}
+module.exports = { getAll, getAuthorById,findByName, postAuthor, putAuthor, patchUpdate, removeAuthor}

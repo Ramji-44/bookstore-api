@@ -15,18 +15,24 @@ const getByIdValidSchema = {
 // Post /authors
 const postValidSchema = {
     name: {
+        in: ["body"],
         notEmpty: {
             errorMessage: "Name must not be empty"
         },
-        isString: {
-            errorMessage: "Name must be string"
+        matches: {
+            options: /^[a-zA-Z ]+$/,   //regEx
+            errorMessage: "Name must contain only letters and spaces"
         }
     },
 
     country: {
-        optional: false,
-        isString: {
-            errorMessage: "Country must be string"
+        in: ["body"],
+        notEmpty: {
+            errorMessage: "Country must not be empty"
+        },
+        matches: {
+            options: /^[a-zA-Z]+$/,
+            errorMessage: "Country must contain only letters and spaces"
         }
     }
 }
@@ -42,20 +48,24 @@ const putValidSchema = {
     },
 
     name: {
+        in: ["body"],
         notEmpty: {
             errorMessage: "Name must not be empty"
         },
-        isString: {
-            errorMessage: "Name must be string"
+        matches: {
+            options: /^[a-zA-Z]+$/,
+            errorMessage: "Name must contain only letters and spaces"
         }
     },
-
-    country: {
-        notEmpty: {
-            errorMessage: "Country must not be empty"
+    
+        country: {
+            in: ["body"],
+            notEmpty: {
+                errorMessage: "Country must not be empty"
         },
-        isString: {
-            errorMessage: "Country must be string"
+        matches: {
+            options: /^[a-zA-Z]+$/,
+            errorMessage: "Country must contain only letters and spaces"
         }
     }
 }
@@ -71,19 +81,26 @@ const patchValidSchema = {
     },
 
     name: {
+        in: ["body"],
         optional: true,
         notEmpty: {
             errorMessage: "Name cannot be empty"
         },
-        isString: {
-            errorMessage: "Name must be string"
+        matches: {
+            options: /^[a-zA-Z]+$/,
+            errorMessage: "Name must contain only letters and spaces"
         }
     },
 
     country: {
+        in: ["body"],
         optional: true,
-        isString: {
-            errorMessage: "Country must be string"
+        notEmpty: {
+            errorMessage: "Country cannot be empty"
+        },
+        matches: {
+            options: /^[a-zA-Z]+$/,
+            errorMessage: "Country must contain only letters and spaces"
         }
     }
 }

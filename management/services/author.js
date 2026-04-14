@@ -13,16 +13,38 @@ const getAuthorById = async (id) => {
 
 // create new author
 const createAuthor = async (body) => {
+
+    const authorExists = await AuthorDao.findByName(body.name)    // if exist in db
+    if(authorExists){
+        throw new Error ("Author already exists")
+    }
     return AuthorDao.postAuthor(body)
 }
 
-// update author
+
+// put  full update author 
 const updateAuthorById = async (id,body) => {
+
+     const authorExists = await AuthorDao.findByName(body.name);
+
+    // ignore same 
+    if (authorExists && authorExists.id != id) {
+        throw new Error("Author already exists");
+    }
+    
     return AuthorDao.putAuthor(id,body)
 }
 
 // patch update author
 const patchAuthorById = async(id,body) => {
+    if (body.name) {
+
+        const authorExists = await AuthorDao.findByName(body.name);
+
+        if (authorExists && authorExists.id != id) {
+            throw new Error("Author already exists");
+        }
+    }
     return AuthorDao.patchUpdate(id,body)
 }
 
