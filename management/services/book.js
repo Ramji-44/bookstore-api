@@ -1,18 +1,18 @@
 
-const bookDao = require("../../dao/book.dao")
+const bookDao = require("../../dao/bookDao")
 
 // get all books 
-const AllBooks = async() => {
-    return bookDao.getAllBooks()
+const listAll = async() => {
+    return bookDao.getAll()
 }
 
 // get book by id 
-const getByBookId = async(id) => {
-    return bookDao.getBookbyId(id)
+const findById = async(id) => {
+    return bookDao.getById(id)
 }
 
 // create new book
-const createBook = async(body) => {
+const create = async(body) => {
     if(!body.title){
         throw new Error ("Title is required")
     }
@@ -20,12 +20,12 @@ const createBook = async(body) => {
         if(bookExists){
             throw new Error ("Book already exists")
         }
-    return bookDao.createBook(body)
+    return bookDao.createRow(body)
 }
 
 
 // put update book
-const fullUpdateBook = async(id, body) => {
+const replace = async(id, body) => {
     if(body.title){
     const bookExists = await bookDao.findByTitle(body.title.toLowerCase().trim());
     
@@ -33,11 +33,11 @@ const fullUpdateBook = async(id, body) => {
             throw new Error("Book already exists");
         }
     }
-    return bookDao.updateBook(id, body)
+    return bookDao.replaceRow(id, body)
 }
 
 // patch update (partial) book
-const partialUpdateBook = async(id, body) => {
+const modify = async(id, body) => {
 
     if (body.title) {    // if title is update
     
@@ -47,12 +47,12 @@ const partialUpdateBook = async(id, body) => {
                 throw new Error("Book already exists");
             }
         }
-    return bookDao.patchBook(id, body)
+    return bookDao.modifyRow(id, body)
 }
 
 // delete book 
-const destroyBook = async(id) => {
-    return bookDao.deleteBook(id)
+const remove = async(id) => {
+    return bookDao.deleteRow(id)
 }
 
-module.exports = {AllBooks, getByBookId, createBook, fullUpdateBook, partialUpdateBook, destroyBook }
+module.exports = {listAll, findById, create, replace, modify, remove }

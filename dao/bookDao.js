@@ -2,17 +2,17 @@
 const db = require("./models")
 
 // get ALl books
-const getAllBooks = async() => {
+const getAll = async() => {
     return db.Book.findAll()
 }
 
 // get book by pk (id)
-const getBookbyId = async(id) => {
+const getById = async(id) => {
     return db.Book.findByPk(id)
 }
 
 // create new book 
-const createBook = async(body) => {
+const createRow = async(body) => {
     body.title = body.title.toLowerCase().trim()
     return db.Book.create(body)
 }
@@ -25,7 +25,7 @@ const findByTitle = async (title) => {
 }
 
 // put (update) book
-const updateBook = async(id, body) => {
+const replaceRow = async(id, body) => {
     const book = await db.Book.findByPk(id)
 
     if(!book){
@@ -46,7 +46,7 @@ const updateBook = async(id, body) => {
 }
 
 // patch (partial update) book
-const patchBook = async(id, body) => {
+const modifyRow = async(id, body) => {
     const book = await db.Book.findByPk(id)
 
     if(!book){
@@ -59,12 +59,14 @@ const patchBook = async(id, body) => {
     const checkSameData = book.title === newTitle && Number(book.price) === Number(newPrice) && Number(book.stock) === Number(newStock)
     if (checkSameData) return { Nochange: true }
 
-      if (body.title) body.title = newTitle 
+      if (body.title){
+         body.title = newTitle 
+      }
     return await book.update(body)  // update and save changes
 }
 
 // delete book
-const deleteBook = async(id) => {
+const deleteRow = async(id) => {
     const book = await db.Book.findByPk(id)
 
     if(!book){
@@ -74,4 +76,4 @@ const deleteBook = async(id) => {
     return true          // for deletion success.
 }
 
-module.exports = {getAllBooks, getBookbyId,findByTitle, createBook, updateBook, patchBook, deleteBook}
+module.exports = {getAll, getById,findByTitle, createRow, replaceRow, modifyRow, deleteRow}

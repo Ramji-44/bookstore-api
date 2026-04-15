@@ -1,18 +1,18 @@
 
-const AuthorDao = require("../../dao/author.dao")
+const AuthorDao = require("../../dao/authorDao")
 
 // get all authors 
-const AllAuthors = async () => {
+const listAll = async () => {
     return AuthorDao.getAll()    // calls the dao
 }
 
 // get author by id 
-const getAuthorById = async (id) => {
-    return AuthorDao.getAuthorById(id)
+const findById = async (id) => {
+    return AuthorDao.getById(id)
 }
 
 // create new author
-const createAuthor = async (body) => {
+const create = async (body) => {
     if(!body.name){
         throw new Error ("Name is required")
     }
@@ -21,12 +21,12 @@ const createAuthor = async (body) => {
     if(authorExists){
         throw new Error ("Author already exists")
     }
-    return AuthorDao.postAuthor(body)
+    return AuthorDao.createRow(body)
 }
 
 
 // put  full update author 
-const updateAuthorById = async (id,body) => {
+const replace = async (id,body) => {
     if(body.name){
      const authorExists = await AuthorDao.findByName(body.name.toLowerCase().trim());
 
@@ -35,11 +35,11 @@ const updateAuthorById = async (id,body) => {
         throw new Error("Author already exists");
     }
 }   
-    return AuthorDao.putAuthor(id,body)
+    return AuthorDao.replaceRow(id,body)
 }
 
 // patch update author
-const patchAuthorById = async(id,body) => {
+const modify = async(id,body) => {
     if (body.name) {
 
         const authorExists = await AuthorDao.findByName(body.name.toLowerCase().trim());
@@ -48,13 +48,13 @@ const patchAuthorById = async(id,body) => {
             throw new Error("Author already exists");
         }
     }
-    return AuthorDao.patchUpdate(id,body)
+    return AuthorDao.modifyRow(id,body)
 }
 
 // delete author
-const deleteAuthorById = async(id) => {
-    return AuthorDao.removeAuthor(id)
+const remove = async(id) => {
+    return AuthorDao.deleteRow(id)
 }
 
 // exports
-module.exports = { AllAuthors, getAuthorById, createAuthor, updateAuthorById, patchAuthorById, deleteAuthorById}
+module.exports = { listAll, findById, create, replace, modify, remove}

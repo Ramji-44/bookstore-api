@@ -2,9 +2,9 @@
 const AuthorService = require("../management/services/author")
 
 // get  /authors
-const getAllauthors = async(req,res) => {
+const getAuthors = async(req,res) => {
     try{
-        const data  = await AuthorService.AllAuthors()  // calls author.service
+        const data  = await AuthorService.listAll()  // calls author.service
         res.status(200).json(data) 
     }
     catch(err){
@@ -16,7 +16,7 @@ const getAllauthors = async(req,res) => {
 // getby id /authors
 const getById = async (req,res) => {
     try{
-        const data = await AuthorService.getAuthorById(req.params.id)    // calls author.service
+        const data = await AuthorService.findById(req.params.id)    // calls author.service
 
         if(!data){    // if not found
             return res.status(404).json({Error : "Author not Found"})
@@ -30,9 +30,9 @@ const getById = async (req,res) => {
 
 
 // post  /authors
-const createNewAuthor = async (req,res) => {
+const createAuthor = async (req,res) => {
     try{
-        const data = await AuthorService.createAuthor(req.body)   // calls author.service
+        const data = await AuthorService.create(req.body)   // calls author.service
         res.status(201).json({Message : "Author Created Successfully"})
     }
     catch(err){
@@ -51,7 +51,7 @@ const updateAuthor = async(req,res) => {
         const id = req.params.id
         const body = req.body
 
-        const updated = await AuthorService.updateAuthorById(id,body)
+        const updated = await AuthorService.replace(id,body)
 
         if(!updated){    // if not found
             return res.status(404).json({Error : "Author not Found"})
@@ -78,7 +78,7 @@ const patchAuthor = async (req,res) => {
         const id = req.params.id
         const body = req.body
 
-        const updated = await AuthorService.patchAuthorById(id,body)
+        const updated = await AuthorService.modify(id,body)
 
         if (!updated) {   // if not found
             return res.status(404).json({ message: "Author not found" })
@@ -104,7 +104,7 @@ const deleteAuthor = async (req,res) => {
     try{
         const id = req.params.id
 
-        const deleted = await AuthorService.deleteAuthorById(id)
+        const deleted = await AuthorService.remove(id)
 
         if(!deleted){
             return res.status(404).json({message : "Author not Found"})
@@ -118,4 +118,4 @@ const deleteAuthor = async (req,res) => {
 
 
 // export
-module.exports = {getAllauthors, getById, createNewAuthor, updateAuthor, patchAuthor, deleteAuthor}
+module.exports = {getAuthors, getById, createAuthor, updateAuthor, patchAuthor, deleteAuthor}

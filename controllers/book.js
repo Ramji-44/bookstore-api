@@ -2,9 +2,9 @@
 const bookService = require("../management/services/book")
 
 // get All books  - /api/books 
-const getAllBooks = async(req,res) => {
+const getBooks = async(req,res) => {
     try{
-        const data = await bookService.AllBooks()   // calls books service
+        const data = await bookService.listAll()   // calls books service
         res.status(200).json(data)
     }
     catch(err){
@@ -13,9 +13,9 @@ const getAllBooks = async(req,res) => {
 }
 
 // get   /api/books/:id  -  books byID 
-const getByid = async (req,res) => {
+const getById = async (req,res) => {
     try{
-        const data = await bookService.getByBookId(req.params.id)   // get id from params.
+        const data = await bookService.findById(req.params.id)   // get id from params.
         if(!data) {
             return res.status(404).json({Error : "Book Not Found"})
         }
@@ -27,9 +27,9 @@ const getByid = async (req,res) => {
 }
 
 // post - /api/books/:id   -create books
-const postBook = async(req,res) => {
+const createBook = async(req,res) => {
     try{
-        const data = await bookService.createBook(req.body)
+        const data = await bookService.create(req.body)
         res.status(201).json(data)
     }
     catch(err){
@@ -42,11 +42,11 @@ const postBook = async(req,res) => {
 
 
 // Put   /api/books/:id - update 
-const putBook = async(req,res) => {
+const updateBook = async(req,res) => {
     try{
         const id = req.params.id
         const body = req.body
-        const fullUpdate = await bookService.fullUpdateBook(id,body)
+        const fullUpdate = await bookService.replace(id,body)
 
         if(!fullUpdate){
             return res.status(404).json({Error : "Book Not Found"})
@@ -66,7 +66,7 @@ const patchBook = async(req,res) => {
     try{
         const id = req.params.id
         const body = req.body
-        const partialUpdate = await bookService.partialUpdateBook(id, body)
+        const partialUpdate = await bookService.modify(id, body)
 
         if(!partialUpdate){
             return res.status(404).json({Error : "Book not found"})
@@ -87,7 +87,7 @@ const patchBook = async(req,res) => {
 const deleteBook = async(req,res) => {
     try{
         const id = req.params.id
-        const remove = await bookService.destroyBook(id)
+        const remove = await bookService.remove(id)
 
         if(!remove){
             return res.status(404).json({Error : "Book not found"})
@@ -100,4 +100,4 @@ const deleteBook = async(req,res) => {
 }
 
 
-module.exports = { getAllBooks, postBook, getByid, putBook, patchBook, deleteBook } 
+module.exports = { getBooks, getById, createBook, updateBook, patchBook, deleteBook } 
