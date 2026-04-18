@@ -1,119 +1,84 @@
-
 // validation schema for the (Author) inputs operations CRUD
 
-// Get  /authors/:id
+const id = {
+    id: {
+        in: ["params"],
+        isInt: {
+            errorMessage: "Author ID must be a number"
+        },
+        toInt : true
+    }
+}
+
+const nameInput = {
+    name: {
+        in: ["body"],
+        notEmpty: {
+            errorMessage: "name must not be empty"
+        },
+        matches: {
+            options: /^[a-zA-Z ]+$/,
+            errorMessage: "name must contain only letters and spaces"
+        },
+        isLength: {
+            options : {min : 2, max : 80},
+            errorMessage: "name must be between 2 and 80 characters"
+        }
+    }
+}
+
+const countryInput = {
+    country: {
+        in: ["body"],
+        notEmpty: {
+            errorMessage: "country must not be empty"
+        },
+        matches: {
+            options: /^[a-zA-Z ]+$/,
+            errorMessage: "country must contain only letters and spaces"
+        },
+        isLength: {
+            options : {min : 3, max : 80},
+            errorMessage: "country must be between 3 and 80 characters"
+        }
+    }
+}
+
+// GET /authors/:id
 const getByIdValidSchema = {
-    id: {
-        in: ["params"],
-        isInt: {
-            errorMessage: "Author ID must be a number"
-        }
-    }
+    ...id
 }
 
-
-// Post /authors
+// POST /authors
 const postValidSchema = {
-    name: {
-        in: ["body"],
-        notEmpty: {
-            errorMessage: "Name must not be empty"
-        },
-        matches: {
-            options: /^[a-zA-Z ]+$/,   //regEx
-            errorMessage: "Name must contain only letters and spaces"
-        }
-    },
-
-    country: {
-        in: ["body"],
-        notEmpty: {
-            errorMessage: "Country must not be empty"
-        },
-        matches: {
-            options: /^[a-zA-Z ]+$/,
-            errorMessage: "Country must contain only letters and spaces"
-        }
-    }
+    ...nameInput,
+    ...countryInput
 }
 
-
-// Put /authors/:id  -> full update 
+// PUT /authors/:id (full update)
 const putValidSchema = {
-    id: {
-        in: ["params"],
-        isInt: {
-            errorMessage: "Author ID must be a number"
-        }
-    },
-
-    name: {
-        in: ["body"],
-        notEmpty: {
-            errorMessage: "Name must not be empty"
-        },
-        matches: {
-            options: /^[a-zA-Z ]+$/,
-            errorMessage: "Name must contain only letters and spaces"
-        }
-    },
-    
-        country: {
-            in: ["body"],
-            notEmpty: {
-                errorMessage: "Country must not be empty"
-        },
-        matches: {
-            options: /^[a-zA-Z ]+$/,
-            errorMessage: "Country must contain only letters and spaces"
-        }
-    }
+    ...id,
+    ...nameInput,
+    ...countryInput
 }
 
-
-// Patch /authors/:id -> partial update
+// PATCH /authors/:id (partial update)
 const patchValidSchema = {
-    id: {
-        in: ["params"],
-        isInt: {
-            errorMessage: "Author ID must be a number"
-        }
-    },
-
+    ...id,
     name: {
-        in: ["body"],
-        optional: true,
-        notEmpty: {
-            errorMessage: "Name cannot be empty"
-        },
-        matches: {
-            options: /^[a-zA-Z ]+$/,
-            errorMessage: "Name must contain only letters and spaces"
-        }
+        ...nameInput.name,
+        optional: true
     },
-
     country: {
-        in: ["body"],
-        optional: true,
-        notEmpty: {
-            errorMessage: "Country cannot be empty"
-        },
-        matches: {
-            options: /^[a-zA-Z ]+$/,
-            errorMessage: "Country must contain only letters and spaces"
-        }
+        ...countryInput.country,
+        optional: true
     }
 }
 
-
-// Delete /authors/:id
+// DELETE /authors/:id
 const deleteValidSchema = {
-    id: {
-        in: ["params"],
-        isInt: {
-            errorMessage: "Author ID must be a number"
-        }
-    }
+    ...id
 }
+
 
 module.exports = { getByIdValidSchema, postValidSchema, putValidSchema, patchValidSchema, deleteValidSchema }
