@@ -38,7 +38,7 @@ const createAuthor = async (req,res) => {
     catch(err){
 
         if(err.message === "Author already exists"){
-            return res.status(400).json({Error : err.message})
+            return res.status(409).json({Error : err.message})
         }
         return res.status(500).json({ Error: err.message })
     }
@@ -65,7 +65,7 @@ const updateAuthor = async(req,res) => {
 
     catch(err){
          if(err.message === "Author already exists"){
-            return res.status(400).json({Error : err.message})
+            return res.status(409).json({Error : err.message})
         }
         return res.status(500).json({Error : err.message})
     }
@@ -92,9 +92,9 @@ const patchAuthor = async (req,res) => {
     }
     catch (err) {
          if(err.message === "Author already exists"){
-            return res.status(400).json({Error : err.message})
+            return res.status(409).json({Error : err.message})
         }
-        res.status(500).json({ error: err.message })
+        res.status(500).json({ Error: err.message })
     }
 }
 

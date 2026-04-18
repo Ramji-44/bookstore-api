@@ -34,7 +34,7 @@ const createBook = async(req,res) => {
     }
     catch(err){
         if(err.message === "Book already exists"){
-            return res.status(400).json({Error : err.message})
+            return res.status(409).json({Error : err.message})
         }
         return res.status(500).json({Error : err.message})
     }
@@ -57,6 +57,9 @@ const updateBook = async(req,res) => {
         res.json({Message : "Book Updated successfully !!"})
     }
     catch(err){
+        if(err.message === "Book already exists"){
+            return res.status(409).json({error : err.message})
+        }
         return res.status(500).json({Error : err.message})
     }
 }
@@ -78,6 +81,9 @@ const patchBook = async(req,res) => {
         res.json({Message : "Book Updated succesfully"})
     }
     catch(err){
+        if(err.message === "Book already exists"){
+            return res.status(409).json({Error : err.message})
+        }
         return res.status(500).json({Error : err.message})
     }
 }
