@@ -6,13 +6,14 @@ const id = {
         isInt: {
             errorMessage: "Author ID must be a number"
         },
-        toInt : true
+        toInt: true
     }
 }
 
 const nameInput = {
     name: {
         in: ["body"],
+        trim: true,
         notEmpty: {
             errorMessage: "name must not be empty"
         },
@@ -21,8 +22,8 @@ const nameInput = {
             errorMessage: "name must contain only letters and spaces"
         },
         isLength: {
-            options : {min : 2, max : 80},
-            errorMessage: "name must be between 2 and 80 characters"
+            options: { min: 3, max: 80 },
+            errorMessage: "name must be between 3 and 80 characters"
         }
     }
 }
@@ -30,6 +31,7 @@ const nameInput = {
 const countryInput = {
     country: {
         in: ["body"],
+        trim: true,
         notEmpty: {
             errorMessage: "country must not be empty"
         },
@@ -38,8 +40,8 @@ const countryInput = {
             errorMessage: "country must contain only letters and spaces"
         },
         isLength: {
-            options : {min : 3, max : 80},
-            errorMessage: "country must be between 3 and 80 characters"
+            options: { min: 2, max: 80 },
+            errorMessage: "country must be between 2 and 80 characters"
         }
     }
 }

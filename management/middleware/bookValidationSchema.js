@@ -6,23 +6,24 @@ const id = {
         isInt: {
             errorMessage: "Book id must be a number"
         },
-        toInt : true
+        toInt: true
     }
 }
 
 const titleInput = {
     title: {
         in: ["body"],
+        trim: true,
         notEmpty: {
             errorMessage: "title must not be empty"
         },
         matches: {
-            options : /^[a-zA-Z0-9 ?!@&-]+$/,
-            errorMessage: "title must contain  letters"
+            options: /^[a-zA-Z0-9 ?!@&-]+$/,
+            errorMessage: "title can only include letters, numbers, spaces, and ? ! @ & -"
         },
         isLength: {
-            options: { min : 1, max: 80 },
-            errorMessage: "title must be between 1 and 80 characters." 
+            options: { min: 1, max: 80 },
+            errorMessage: "title must be between 1 and 80 characters."
         }
     }
 }
@@ -31,8 +32,8 @@ const priceInput = {
     price: {
         in: ["body"],
         isFloat: {
-            options: { min: 0 },
-            errorMessage: "Price must be a valid positive number"
+            options: { min: 0, max: 99999999.99 },
+            errorMessage: "price must be a non-negative number with up to 2 decimal places"
         }
     }
 }
@@ -44,12 +45,11 @@ const stockInput = {
             errorMessage: "stock must not be empty"
         },
         isInt: {
-            options: { min: 0 },
-            errorMessage: "stock must be a valid positive number"
+            options: { min: 0, max: 100000 },
+            errorMessage: "Stock must be an integer from 0 to 20,000"
         }
     }
 }
-
 
 // Get  /books/:id
 const getByIdVS = {
@@ -63,7 +63,6 @@ const PostBookVS = {
     ...stockInput
 }
 
-
 // put books  /books/:id
 const putBookVS = {
     ...id,
@@ -71,7 +70,6 @@ const putBookVS = {
     ...priceInput,
     ...stockInput
 }
-
 
 // patch books /books/:id
 const patchBookVS = {
@@ -89,7 +87,6 @@ const patchBookVS = {
         optional: true
     }
 }
-
 
 // delete  /books/:id
 const deleteBookVS = {
