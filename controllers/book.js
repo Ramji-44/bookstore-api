@@ -54,7 +54,7 @@ const updateBook = async(req,res) => {
         if (fullUpdate.Nochange) {     // response for the same data in body,
             return res.status(200).json({ message: "No update happened, all values are same" })
         }
-        res.json({Message : "Book Updated successfully !!"})
+        res.json(fullUpdate)
     }
     catch(err){
         if(err.message === "Book already exists"){
@@ -78,7 +78,7 @@ const patchBook = async(req,res) => {
         if (partialUpdate.Nochange) {    //  response for the same data in body,
             return res.status(200).json({ message: "No update happened, all values are same" })
         }
-        res.json({Message : "Book Updated succesfully"})
+        res.json(partialUpdate)
     }
     catch(err){
         if(err.message === "Book already exists"){

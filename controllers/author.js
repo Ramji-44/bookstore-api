@@ -33,7 +33,7 @@ const getById = async (req,res) => {
 const createAuthor = async (req,res) => {
     try{
         const data = await AuthorService.create(req.body)   // calls author.service
-        res.status(201).json({Message : "Author Created Successfully"})
+        res.status(201).json(data)
     }
     catch(err){
 
@@ -60,7 +60,7 @@ const updateAuthor = async(req,res) => {
         if (updated.Nochange) {
             return res.status(200).json({ message: "No update happened, all values are same" })
         }
-        res.json({Message : "Author updated successfully"})  // if data changes, updated sucess
+        res.json(data)  // if data changes, updated sucess
     }
 
     catch(err){
@@ -88,7 +88,7 @@ const patchAuthor = async (req,res) => {
             return res.status(200).json({ message: "No update happened, all values are same" })
         }
 
-        res.json({ message: "Author  updated successfully"})
+        res.json(updated)
     }
     catch (err) {
          if(err.message === "Author already exists"){
