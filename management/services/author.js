@@ -1,4 +1,3 @@
-
 const AuthorDao = require("../../dao/authorDao")
 
 // get all authors 
@@ -13,48 +12,50 @@ const findById = async (id) => {
 
 // create new author
 const create = async (body) => {
-    if(!body.name){
-        throw new Error ("Name is required")
+    if (!body.name || !body.country) {
+        throw new Error("Name and country are required")
     }
 
-    const authorExists = await AuthorDao.findByName(body.name.toLowerCase().trim())    // if exist in db
-    if(authorExists){
-        throw new Error ("Author already exists")
+    const authorExists = await AuthorDao.findByNameCountry(body.name, body.country)    // if exist in db
+    if (authorExists) {
+        throw new Error("Author already exists")
     }
     return AuthorDao.createRow(body)
 }
 
-
 // put  full update author 
-const replace = async (id,body) => {
-    if(body.name){
-     const authorExists = await AuthorDao.findByName(body.name.toLowerCase().trim());
+const replace = async (id, body) => {
+        const authorExists = await AuthorDao.findAuthor(body.name, body.country, id)
 
-    // ignore same 
-    if (authorExists && authorExists.id != id) {
-        throw new Error("Author already exists");
-    }
-}   
-    return AuthorDao.replaceRow(id,body)
+        // ignore same 
+        if (authorExists) {
+            throw new Error("Author already exists");
+        }
+    return AuthorDao.replaceRow(id, body)
 }
 
 // patch update author
-const modify = async(id,body) => {
-    if (body.name) {
-
-        const authorExists = await AuthorDao.findByName(body.name.toLowerCase().trim());
-
-        if (authorExists && authorExists.id != id) {
-            throw new Error("Author already exists");
-        }
+const modify = async (id, body) => {
+     const author = await AuthorDao.getById(id)
+    if (!author) {
+        throw new Error("Author not found")
     }
-    return AuthorDao.modifyRow(id,body)
+
+    const newName = body.name ?? author.name
+    const newCountry = body.country ?? author.country
+
+    const authorExists = await AuthorDao.findAuthor(newName, newCountry, id)
+
+    if (authorExists) {
+        throw new Error("Author already exists")
+    }
+    return AuthorDao.modifyRow(id, body)
 }
 
 // delete author
-const remove = async(id) => {
+const remove = async (id) => {
     return AuthorDao.deleteRow(id)
 }
 
 // exports
-module.exports = { listAll, findById, create, replace, modify, remove}
+module.exports = { listAll, findById, create, replace, modify, remove }

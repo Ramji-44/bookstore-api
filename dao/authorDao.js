@@ -1,9 +1,8 @@
-
 const db = require("./models")
-
+const { Op } = require("sequelize")
 // get all authors
 const getAll = async () => {
-    return db.Author.findAll({ attributes: { exclude: ["createdAt", "updatedAt"] }})
+    return db.Author.findAll({ attributes: { exclude: ["createdAt", "updatedAt"] } })
 }
 
 // get author by pk(id)
@@ -11,16 +10,29 @@ const getById = async (id) => {
     return db.Author.findByPk(id, { attributes: { exclude: ["createdAt", "updatedAt"] } })
 }
 
-// finds Name 
-const findByName = async (name) => {
+// finds Name and country
+const findByNameCountry = async (name, country) => {
     return db.Author.findOne({
-        where: { name }
+        where: {
+            name: name,
+            country: country
+        }
+    })
+}
+
+// check duplicate
+const findAuthor = async (name, country, id) => {
+    return db.Author.findOne({
+        where: {
+            name: name,
+            country: country,
+            id: { [Op.ne]: id }
+        }
     })
 }
 
 // create new author
 const createRow = async (data) => {
-    data.name = data.name.toLowerCase().trim()
     const author = await db.Author.create(data)
     return createdUpdated(author)
 }
@@ -32,10 +44,6 @@ const replaceRow = async (id, body) => {
     if (!author) {    // if not found, return null -> nothing found
         return null
     }
-    // checks the same data is updating or the data changed
-    const checkSameData = author.name === body.name && author.country === body.country
-    if (checkSameData) return { Nochange: true }
-
     author.name = body.name ?? author.name
     author.country = body.country ?? author.country
 
@@ -50,14 +58,9 @@ const modifyRow = async (id, body) => {
     if (!author) {
         return null
     }
-    // check if data is in same or changed.. 
-    const checkSameData = author.name === body.name && author.country === body.country
-    if (checkSameData) return { Nochange: true }
-
     const patchUpdate = await author.update(body)   // update() -> update and save changes
     return createdUpdated(patchUpdate)
 }
-
 
 // delete author
 const deleteRow = async (id) => {
@@ -80,4 +83,4 @@ function createdUpdated(data) {
     return values
 }
 
-module.exports = { getAll, getById, findByName, createRow, replaceRow, modifyRow, deleteRow }
+module.exports = { getAll, getById, findByNameCountry, findAuthor, createRow, replaceRow, modifyRow, deleteRow }
