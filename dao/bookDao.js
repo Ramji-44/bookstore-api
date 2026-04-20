@@ -11,18 +11,17 @@ const getById = async (id) => {
     return db.Book.findByPk(id, { attributes: { exclude: ["createdAt", "updatedAt"] } })
 }
 
-// create new book 
-const createRow = async (body) => {
-    body.title = body.title.toLowerCase().trim()
-    const book = await db.Book.create(body)
-    return createdUpdated(book)
-}
-
 // duplicate title check
 const findByTitle = async (title) => {
     return db.Book.findOne({
         where: { title }
     })
+}
+
+// create new book 
+const createRow = async (body) => {
+    const book = await db.Book.create(body)
+    return createdUpdated(book)
 }
 
 // put (update) book
@@ -32,16 +31,9 @@ const replaceRow = async (id, body) => {
     if (!book) {
         return null
     }
-    const newTitle = body.title ? body.title.toLowerCase().trim() : book.title
-    const newPrice = body.price ?? book.price
-    const newStock = body.stock ?? book.stock
-    // checks the same data is given in body 
-    const checkSameData = book.title === newTitle && Number(book.price) === Number(newPrice) && Number(book.stock) === Number(newStock)
-    if (checkSameData) return { Nochange: true }
-
-    book.title = newTitle
-    book.price = newPrice
-    book.stock = newStock
+    book.title = body.title ?? book.title
+    book.price = body.price ?? book.price
+    book.stock = body.stock ?? book.stock
 
     const putUpdate = await book.save()   // save changes.
     return createdUpdated(putUpdate)
@@ -53,16 +45,6 @@ const modifyRow = async (id, body) => {
 
     if (!book) {
         return null
-    }
-    const newTitle = body.title ? body.title.toLowerCase().trim() : book.title
-    const newPrice = body.price ?? book.price
-    const newStock = body.stock ?? book.stock
-
-    const checkSameData = book.title === newTitle && Number(book.price) === Number(newPrice) && Number(book.stock) === Number(newStock)
-    if (checkSameData) return { Nochange: true }
-
-    if (body.title) {
-        body.title = newTitle
     }
     const patchUpdate = await book.update(body)  // update and save changes
     return createdUpdated(patchUpdate)
