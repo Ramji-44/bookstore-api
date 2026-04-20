@@ -1,10 +1,10 @@
-const AuthorService = require("../management/services/author")
+const authorService = require("../management/services/author")
 const { matchedData } = require("express-validator")
 
 // get  /authors
 const getAuthors = async (req, res) => {
     try {
-        const data = await AuthorService.listAll()  // calls author.service
+        const data = await authorService.listAll()  // calls author.service
         res.status(200).json(data)
     }
     catch (err) {
@@ -15,7 +15,7 @@ const getAuthors = async (req, res) => {
 // getby id /authors
 const getById = async (req, res) => {
     try {
-        const data = await AuthorService.findById(req.params.id)    // calls author.service
+        const data = await authorService.findById(req.params.id)    // calls author.service
         res.status(200).json(data)
     }
     catch (err) {
@@ -27,7 +27,7 @@ const getById = async (req, res) => {
 const createAuthor = async (req, res) => {
     try {
         const body = matchedData(req)
-        const data = await AuthorService.create(body)   // calls author.service
+        const data = await authorService.create(body)   // calls author.service
         res.status(201).json(data)
     }
     catch (err) {
@@ -38,7 +38,7 @@ const createAuthor = async (req, res) => {
 // put   /authors/:id 
 const updateAuthor = async (req, res) => {
     try {
-        const updated = await AuthorService.replace(req.params.id, matchedData(req))   // matchedData(req) is body.
+        const updated = await authorService.replace(req.params.id, matchedData(req))   // matchedData(req) is body.
         res.json(updated)  // if data changes, updated sucess
     }
     catch (err) {
@@ -49,7 +49,7 @@ const updateAuthor = async (req, res) => {
 // patch  /authors/:id   -> partial update
 const patchAuthor = async (req, res) => {
     try {
-        const updated = await AuthorService.modify(req.params.id, matchedData(req))
+        const updated = await authorService.modify(req.params.id, matchedData(req))
         res.json(updated)
     }
     catch (err) {
@@ -60,7 +60,7 @@ const patchAuthor = async (req, res) => {
 // delete  /authors/:id  
 const deleteAuthor = async (req, res) => {
     try {
-        await AuthorService.remove(req.params.id)
+        await authorService.remove(req.params.id)
         res.json({ message: "Author deleted successfully" })
     }
     catch (err) {
