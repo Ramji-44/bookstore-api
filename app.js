@@ -9,8 +9,8 @@ app.use("/authors", authorRoutes)    // author routes only
 app.use("/books", bookRoutes)        // books routes only 
 
 // route test
-app.get("/", (req,res) => {
-    res.json({Message : "API is working "})
+app.get("/", (req, res) => {
+    res.json({ Message: "API is working " })
 })
 
 module.exports = app

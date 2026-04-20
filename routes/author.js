@@ -10,7 +10,7 @@ const { checkSchema } = require("express-validator")
 
 // author route
 router.get('/', authorController.getAuthors)  // All authors
-router.get('/:id', checkSchema(getByIdValidSchema), validate,  authorController.getById)     // findbyid
+router.get('/:id', checkSchema(getByIdValidSchema), validate, authorController.getById)     // findbyid
 router.post('/', checkSchema(postValidSchema), validate, authorController.createAuthor)  // post
 router.put('/:id', checkSchema(putValidSchema), validate, authorController.updateAuthor)  // update author
 router.patch('/:id', checkSchema(patchValidSchema), validate, authorController.patchAuthor)  // partial update

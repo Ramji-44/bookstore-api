@@ -5,7 +5,7 @@ const router = express.Router()
 const bookController = require("../controllers/book")   // book controller
 const validate = require("../management/middleware/validation")    // validation.
 
-const {getByIdVS, PostBookVS, putBookVS, patchBookVS, deleteBookVS } = require("../management/middleware/bookValidationSchema")
+const { getByIdVS, PostBookVS, putBookVS, patchBookVS, deleteBookVS } = require("../management/middleware/bookValidationSchema")
 const { checkSchema } = require("express-validator")
 
 // book route
