@@ -23,7 +23,6 @@ const getById = async (req, res) => {
     }
 }
 
-
 // post  /authors
 const createAuthor = async (req, res) => {
     try {
@@ -36,14 +35,10 @@ const createAuthor = async (req, res) => {
     }
 }
 
-
 // put   /authors/:id 
 const updateAuthor = async (req, res) => {
     try {
-        const id = req.params.id
-        const body = matchedData(req)
-
-        const updated = await AuthorService.replace(id, body)
+        const updated = await AuthorService.replace(req.params.id, matchedData(req))   // matchedData(req) is body.
         res.json(updated)  // if data changes, updated sucess
     }
     catch (err) {
@@ -51,21 +46,16 @@ const updateAuthor = async (req, res) => {
     }
 }
 
-
 // patch  /authors/:id   -> partial update
 const patchAuthor = async (req, res) => {
     try {
-        const id = req.params.id
-        const body = matchedData(req, { includeOptionals: true })
-
-        const updated = await AuthorService.modify(id, body)
+        const updated = await AuthorService.modify(req.params.id, matchedData(req))
         res.json(updated)
     }
     catch (err) {
         res.status(err.status || 500).json({ Error: err.message })
     }
 }
-
 
 // delete  /authors/:id  
 const deleteAuthor = async (req, res) => {
