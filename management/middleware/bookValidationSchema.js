@@ -18,8 +18,8 @@ const titleInput = {
             errorMessage: "title must not be empty"
         },
         matches: {
-            options: /^[a-zA-Z0-9 ?!@&-]+$/,
-            errorMessage: "title can only include letters, numbers, spaces, and ? ! @ & -"
+            options: /^(?=.*[a-zA-Z])[a-zA-Z0-9 ?!@&-]+$/,
+            errorMessage: "enter a valid title using only letters, numbers, spaces, and ? ! @ & -"
         },
         isLength: {
             options: { min: 1, max: 80 },
@@ -32,8 +32,8 @@ const priceInput = {
     price: {
         in: ["body"],
         isFloat: {
-            options: { min: 0, max: 99999999.99 },
-            errorMessage: "price must be a non-negative number with up to 2 decimal places"
+            options: { min: 0, max: 500000 },
+            errorMessage: "Price must be between 0 and 5,00,000"
         }
     }
 }
@@ -46,7 +46,7 @@ const stockInput = {
         },
         isInt: {
             options: { min: 0, max: 100000 },
-            errorMessage: "Stock must be an integer from 0 to 20,000"
+            errorMessage: "Stock must be an integer between 0 to 1,00,000"
         }
     }
 }

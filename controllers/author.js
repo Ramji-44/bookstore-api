@@ -8,7 +8,7 @@ const getAuthors = async (req, res) => {
         res.status(200).json(data)
     }
     catch (err) {
-        return res.status(500).json({ Error: err.message })
+        return res.status(500).json({ error: err.message })
     }
 }
 
@@ -19,7 +19,7 @@ const getById = async (req, res) => {
         res.status(200).json(data)
     }
     catch (err) {
-        res.status(err.status || 500).json({ Error: err.message })
+        res.status(err.status || 500).json({ error: err.message })
     }
 }
 
@@ -31,7 +31,7 @@ const createAuthor = async (req, res) => {
         res.status(201).json(data)
     }
     catch (err) {
-        res.status(err.status || 500).json({ Error: err.message })
+        res.status(err.status || 500).json({ error: err.message })
     }
 }
 
@@ -39,10 +39,10 @@ const createAuthor = async (req, res) => {
 const updateAuthor = async (req, res) => {
     try {
         const updated = await authorService.replace(req.params.id, matchedData(req))   // matchedData(req) is body.
-        res.json(updated)  // if data changes, updated sucess
+        res.status(200).json(updated)  // if data changes, updated sucess
     }
     catch (err) {
-        res.status(err.status || 500).json({ Error: err.message })
+        res.status(err.status || 500).json({ error: err.message })
     }
 }
 
@@ -50,10 +50,10 @@ const updateAuthor = async (req, res) => {
 const patchAuthor = async (req, res) => {
     try {
         const updated = await authorService.modify(req.params.id, matchedData(req))
-        res.json(updated)
+        res.status(200).json(updated)
     }
     catch (err) {
-        res.status(err.status || 500).json({ Error: err.message })
+        res.status(err.status || 500).json({ error: err.message })
     }
 }
 
@@ -61,10 +61,10 @@ const patchAuthor = async (req, res) => {
 const deleteAuthor = async (req, res) => {
     try {
         await authorService.remove(req.params.id)
-        res.json({ message: "Author deleted successfully" })
+        res.status(200).json({ message: "Author deleted successfully" })
     }
     catch (err) {
-        res.status(err.status || 500).json({ Error: err.message })
+        res.status(err.status || 500).json({ error: err.message })
     }
 }
 

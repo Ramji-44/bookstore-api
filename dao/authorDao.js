@@ -1,8 +1,12 @@
 const db = require("./models")
 const { Op } = require("sequelize")
+
 // get all authors
 const getAll = async () => {
-    return db.Author.findAll({ attributes: { exclude: ["createdAt", "updatedAt"] } })
+    return db.Author.findAll({
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+        order: [["name", "ASC"]]
+    })
 }
 
 // get author by pk(id)
@@ -44,8 +48,8 @@ const replaceRow = async (id, body) => {
     if (!author) {    // if not found, return null -> nothing found
         return null
     }
-    author.name = body.name ?? author.name
-    author.country = body.country ?? author.country
+    author.name = body.name
+    author.country = body.country
 
     const putUpdate = await author.save()   // save changes.
     return createdUpdated(putUpdate)
@@ -68,8 +72,7 @@ const deleteRow = async (id) => {
     if (!author) {
         return null
     }
-    await author.destroy()
-    return true  // for deletion success
+    return await author.destroy()
 }
 
 
@@ -77,7 +80,7 @@ const deleteRow = async (id) => {
 function createdUpdated(data) {
     if (!data) return data
 
-    const values = data.toJSON()
+    const values = data.toJSON()   // simplify to JSON().
     delete values.createdAt
     delete values.updatedAt
     return values

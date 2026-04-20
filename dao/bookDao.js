@@ -3,7 +3,10 @@ const db = require("./models")
 
 // get ALl books
 const getAll = async () => {
-    return db.Book.findAll({ attributes: { exclude: ["createdAt", "updatedAt"] } })
+    return db.Book.findAll({
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+        order: [["title", "ASC"]]
+    })
 }
 
 // get book by pk (id)
@@ -31,9 +34,9 @@ const replaceRow = async (id, body) => {
     if (!book) {
         return null
     }
-    book.title = body.title ?? book.title
-    book.price = body.price ?? book.price
-    book.stock = body.stock ?? book.stock
+    book.title = body.title
+    book.price = body.price
+    book.stock = body.stock
 
     const putUpdate = await book.save()   // save changes.
     return createdUpdated(putUpdate)
@@ -57,8 +60,7 @@ const deleteRow = async (id) => {
     if (!book) {
         return null
     }
-    await book.destroy()
-    return true          // for deletion success.
+    return await book.destroy()
 }
 
 // remove createdAt, updatedAt in response  at the post,put,patch methods
