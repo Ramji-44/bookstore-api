@@ -7,7 +7,8 @@ module.exports = (Sequelize, DataTypes) => {
         },
         country: {
             type: DataTypes.STRING(100),
-            allowNull: false        }
+            allowNull: false
+        }
     },
         {
             tableName: "authors"  // table Name 

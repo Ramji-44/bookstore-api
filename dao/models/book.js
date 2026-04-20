@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0
     }
   },
-  {
-    tableName : "books"
-  })
+    {
+      tableName: "books"
+    })
   return Book
 }

@@ -1,34 +1,34 @@
 // changed .json to .js 
 const dotenv = require("dotenv")
-const path =  require("path")
+const path = require("path")
 dotenv.config({
-  path : path.resolve(__dirname , "../../.env")
+  path: path.resolve(__dirname, "../../.env")
 })   // load env
 
 module.exports = {
-  development : {
-    username : process.env.DB_USER,
-    password : process.env.DB_PASSWORD,
-    database : process.env.DB_NAME,
-    host : process.env.DB_HOST,
-    dialect : "mysql",
-    logging : false
+  development: {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect: "mysql",
+    logging: false
   },
   test: {
-    username : process.env.DB_USER,
-    password : process.env.DB_PASSWORD,
-    database : process.env.DB_NAME,
-    host : process.env.DB_HOST,
-    dialect : "mysql",
-    logging : false
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect: "mysql",
+    logging: false
   },
-  production : {
-    username : process.env.DB_USER,
-    password : process.env.DB_PASSWORD,
-    database : process.env.DB_NAME,
-    host : process.env.DB_HOST,
-    dialect : "mysql",
-    logging : false
+  production: {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect: "mysql",
+    logging: false
   }
 }
 
