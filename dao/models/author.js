@@ -14,5 +14,11 @@ module.exports = (Sequelize, DataTypes) => {
             tableName: "authors"  // table Name 
         })
 
+    Author.associate = (models) => {
+        Author.hasMany(models.Book, {   // one author has many books
+            foreignKey: "author_id"
+        })
+    }
+
     return Author
 }
